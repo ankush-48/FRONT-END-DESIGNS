@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TasteVibe Restaurant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff8f0;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff6f61, #ffcc70);
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #222;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') center/cover no-repeat;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 2px 2px 4px #000;
+      font-size: 2rem;
+    }
+
+    .menu {
+      padding: 40px;
+      background: #fff;
+    }
+
+    .menu h2 {
+      text-align: center;
+      color: #ff6f61;
+      margin-bottom: 30px;
+    }
+
+    .menu-items {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .menu-card {
+      background: #fff4e6;
+      border-radius: 15px;
+      width: 240px;
+      margin: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s, background 0.3s;
+      cursor: pointer;
+    }
+
+    .menu-card:hover {
+      transform: scale(1.05);
+      background: #ffe9c7;
+    }
+
+    .menu-card h3 {
+      color: #e94e77;
+      margin-bottom: 10px;
+    }
+
+    .menu-card p {
+      font-size: 0.9rem;
+    }
+
+    .about {
+      padding: 40px;
+      background: #ffede1;
+      color: #444;
+      text-align: center;
+    }
+
+    .about h2 {
+      color: #e94e77;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    footer {
+      background: #e94e77;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>TasteVibe Restaurant</h1>
+    <nav>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    Enjoy Delicious Vibes Every Bite 🍽️
+  </section>
+
+  <section id="menu" class="menu">
+    <h2>Our Signature Dishes</h2>
+    <div class="menu-items">
+      <!-- REPEAT 20 MENU CARDS -->
+      <div class="menu-card"><h3>Spicy Pasta</h3><p>Flavorsome tomato base with chili flakes & herbs.</p></div>
+      <div class="menu-card"><h3>Grilled Chicken</h3><p>Juicy, smoky, tender with roasted veggies.</p></div>
+      <div class="menu-card"><h3>Vegan Bowl</h3><p>Avocado, quinoa, hummus, and crunchy greens.</p></div>
+      <div class="menu-card"><h3>Butter Paneer</h3><p>Creamy cottage cheese in buttery tomato curry.</p></div>
+      <div class="menu-card"><h3>BBQ Wings</h3><p>Sticky, smoky wings with house-made BBQ sauce.</p></div>
+      <div class="menu-card"><h3>Margherita Pizza</h3><p>Classic thin-crust with mozzarella & basil.</p></div>
+      <div class="menu-card"><h3>Masala Dosa</h3><p>South Indian crisp dosa with potato filling.</p></div>
+      <div class="menu-card"><h3>Miso Ramen</h3><p>Japanese noodle broth with egg & seaweed.</p></div>
+      <div class="menu-card"><h3>Tandoori Chicken</h3><p>Char-grilled chicken in Indian spices.</p></div>
+      <div class="menu-card"><h3>Shawarma Wrap</h3><p>Grilled meat wrap with tahini and veggies.</p></div>
+      <div class="menu-card"><h3>Fish Tikka</h3><p>Spiced boneless fish grilled to perfection.</p></div>
+      <div class="menu-card"><h3>Greek Salad</h3><p>Fresh cucumbers, olives, feta, and lemon.</p></div>
+      <div class="menu-card"><h3>Cheeseburger</h3><p>Beef patty with melted cheese & pickles.</p></div>
+      <div class="menu-card"><h3>Thai Green Curry</h3><p>Spicy coconut curry with veggies and tofu.</p></div>
+      <div class="menu-card"><h3>Garlic Naan</h3><p>Buttery naan topped with roasted garlic.</p></div>
+      <div class="menu-card"><h3>Choco Lava Cake</h3><p>Rich chocolate dessert with molten center.</p></div>
+      <div class="menu-card"><h3>Pav Bhaji</h3><p>Mumbai street-style mashed vegetable curry.</p></div>
+      <div class="menu-card"><h3>Sushi Platter</h3><p>Assorted rolls with wasabi and soy sauce.</p></div>
+      <div class="menu-card"><h3>Falafel Bowl</h3><p>Middle Eastern chickpea fritters & hummus.</p></div>
+      <div class="menu-card"><h3>Cold Coffee Shake</h3><p>Chilled coffee with ice cream swirl.</p></div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>We are a vibrant and welcoming restaurant serving global fusion with local love. Every dish is crafted to spark joy and satisfy your soul.</p>
+  </section>
+
+  <footer>
+    © 2025 TasteVibe Restaurant | Designed with ❤️ by <a href="#">ANKUSH</a>
+  </footer>
+
+</body>
+</html>
