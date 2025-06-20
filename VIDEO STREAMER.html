@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ColorTube - Watch in Color!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff416c;
+      --secondary: #ff4b2b;
+      --accent: #42a5f5;
+      --bg-light: #fbc2eb;
+      --bg-dark: #1e1e2f;
+      --text-light: #ffffff;
+      --text-dark: #333333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, var(--bg-light), #a6c1ee);
+      color: var(--text-dark);
+      transition: 0.4s ease;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .search-filter {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .search-filter input {
+      padding: 0.5rem;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      width: 60%;
+      max-width: 400px;
+    }
+
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin: 1rem;
+    }
+
+    .category-buttons button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      background-color: var(--accent);
+      color: white;
+      cursor: pointer;
+    }
+
+    .video-scroll-section {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-card {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .video-card:hover {
+      transform: scale(1.03);
+    }
+
+    .video-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .video-card .content {
+      padding: 1rem;
+    }
+
+    .video-card h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .video-card p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.5rem;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 0.8rem;
+      display: none;
+    }
+
+    .video-card:hover .tooltip {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎨 ColorTube - Scroll & Enjoy!</h1>
+</header>
+
+<section class="search-filter">
+  <input type="text" id="searchInput" placeholder="Search videos...">
+</section>
+
+<section class="category-buttons">
+  <button onclick="filterCategory('all')">All</button>
+  <button onclick="filterCategory('puppy')">Puppy</button>
+  <button onclick="filterCategory('cat')">Cat</button>
+  <button onclick="filterCategory('music')">Music</button>
+  <button onclick="filterCategory('fitness')">Fitness</button>
+  <button onclick="filterCategory('coding')">Coding</button>
+  <button onclick="filterCategory('travel')">Travel</button>
+</section>
+
+<section class="video-scroll-section" id="videoScrollSection">
+  <!-- Videos injected by JS -->
+</section>
+
+<script>
+const videoData = [
+  { title: "Adorable Puppy Playtime", desc: "Puppies having fun", img: "https://source.unsplash.com/300x180/?puppy", category: "puppy", views: "1.2M views", duration: "3:21" },
+  { title: "Cat Compilation 2025", desc: "Cute cats", img: "https://source.unsplash.com/300x180/?cat", category: "cat", views: "980K views", duration: "2:45" },
+  { title: "Top Lo-fi Beats", desc: "Relaxing music mix", img: "https://source.unsplash.com/300x180/?music", category: "music", views: "3.1M views", duration: "1:00:00" },
+  { title: "Fitness Hacks", desc: "Workout tips", img: "https://source.unsplash.com/300x180/?fitness", category: "fitness", views: "1.5M views", duration: "8:12" },
+  { title: "Learn to Code", desc: "Coding basics", img: "https://source.unsplash.com/300x180/?coding", category: "coding", views: "2.7M views", duration: "10:00" },
+  { title: "Wonders of India", desc: "Travel highlights", img: "https://source.unsplash.com/300x180/?travel", category: "travel", views: "870K views", duration: "4:32" },
+  { title: "Puppy Zoomies", desc: "Hyper doggo", img: "https://source.unsplash.com/300x180/?puppy", category: "puppy", views: "450K views", duration: "2:30" },
+  { title: "Coding Challenge", desc: "30 Days of JS", img: "https://source.unsplash.com/300x180/?code", category: "coding", views: "500K views", duration: "6:45" },
+  { title: "Solo Guitar", desc: "Music by the lake", img: "https://source.unsplash.com/300x180/?guitar", category: "music", views: "720K views", duration: "5:21" },
+  { title: "Mountain Hike", desc: "Epic landscapes", img: "https://source.unsplash.com/300x180/?hiking", category: "travel", views: "1.1M views", duration: "7:33" }
+];
+
+let filteredCategory = 'all';
+
+function renderVideos(filter = '') {
+  const section = document.getElementById('videoScrollSection');
+  section.innerHTML = '';
+  const searchVal = filter.toLowerCase();
+
+  videoData.forEach(video => {
+    if (
+      (filteredCategory === 'all' || video.category === filteredCategory) &&
+      (video.title.toLowerCase().includes(searchVal) || video.desc.toLowerCase().includes(searchVal))
+    ) {
+      const card = document.createElement('div');
+      card.className = 'video-card';
+      card.innerHTML = `
+        <img src="${video.img}" alt="${video.title}" onclick="viewVideo('${video.title}', '${video.desc}', '${video.img}')">
+        <div class="tooltip">${video.duration} • ${video.views}</div>
+        <div class="content">
+          <h3>${video.title}</h3>
+          <p>${video.desc}</p>
+        </div>
+      `;
+      section.appendChild(card);
+    }
+  });
+}
+
+function filterCategory(category) {
+  filteredCategory = category;
+  renderVideos(document.getElementById('searchInput').value);
+}
+
+document.getElementById('searchInput').addEventListener('input', function () {
+  renderVideos(this.value);
+});
+
+function viewVideo(title, desc, img) {
+  alert(`Opening video: ${title}\n\n${desc}`);
+}
+
+renderVideos();
+</script>
+
+</body>
+</html>
+
+
